@@ -13,16 +13,18 @@ npm install invisible
 
 Wire up Invisible into your [express](http://expressjs.com/) app:
 ```javascript
-var express = require("express");
-var path = require("path");
-var invisible = require("invisible");
-
 var app = express();
-app.use(express.bodyParser());
-invisible.createServer(app, path.join(__dirname, "models"))
+app.use(bodyParser());
+
+var config = {
+  rootFolder : path.join(__dirname, 'models')
+};
+
+app.use(invisible.router(config));
+app.use(express.static(__dirname + '/public'));
+
+app.listen(3000);
 ```
-The second parameter is the directory where Invisible will look for model files. Note the bodyParser middleware
-is required for Invisible to work.
 
 ## Extending models
 

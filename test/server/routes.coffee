@@ -4,8 +4,10 @@ request = require('supertest')
 mongo = require('mongodb')
 express = require('express')
 path = require('path')
+bodyParser = require('body-parser')
+
 app = express()
-app.use express.bodyParser()
+app.use bodyParser()
 
 config = require('../../lib/config')
 require('../../lib/routes')(app)
@@ -17,7 +19,7 @@ describe 'REST routes', () ->
 
     before (done) ->
         config.db_uri = 'mongodb://127.0.0.1:27017/invisible-test'
-    
+
         mongo.connect config.db_uri, (err, database) ->
             database.dropDatabase(done)
 
